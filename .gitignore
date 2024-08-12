@@ -1,10 +1,6 @@
-
-
-
-
-
 .env
 
+.idea/
 mongo/
 postgres/
 node_modules/
