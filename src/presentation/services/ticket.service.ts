@@ -59,6 +59,7 @@ export class TicketService {
     ticket.handledAtDesk = desk;
     ticket.handleAt = new Date();
     this.workingOn.unshift({ ...ticket });
+    this.onTicketNumberChange();
     return { status: "success", ticket };
   }
 
