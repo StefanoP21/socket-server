@@ -5,7 +5,7 @@ import { WssService } from "./wss.service";
 export class TicketService {
   constructor(private readonly wssService = WssService.instance) {}
 
-  public readonly tickets: Ticket[] = [
+  public tickets: Ticket[] = [
     {
       id: UuidAdapter.generate(),
       ticketNumber: 1,
@@ -66,9 +66,15 @@ export class TicketService {
   public doneTicket(ticketId: string) {
     const ticket = this.tickets.find((ticket) => ticket.id === ticketId);
     if (!ticket) return { status: "error", message: "Ticket not found" };
-    ticket.done = true;
-    ticket.doneAt = new Date();
-    return { status: "success", ticket };
+    this.tickets = this.tickets.map((t) => {
+      if (t.id === ticketId) {
+        t.done = true;
+        t.doneAt = new Date();
+      }
+      return t;
+    });
+
+    return { status: "success" };
   }
 
   private onTicketNumberChange() {
